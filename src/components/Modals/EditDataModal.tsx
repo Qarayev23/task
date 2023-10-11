@@ -22,7 +22,7 @@ const EditDataModal = ({ isEditModalOpen, setIsEditModalOpen, tabulatorRef }: Ed
     }, [currentValue, form]);
 
     return (
-        <Modal open={isEditModalOpen} onCancel={() => setIsEditModalOpen(false)} footer={null} >
+        <Modal forceRender open={isEditModalOpen} onCancel={() => setIsEditModalOpen(false)} footer={null} getContainer={false}>
             <h1 className='text-2xl font-bold my-5'>Edit Data</h1>
             <Form
                 onFinish={onFinish}

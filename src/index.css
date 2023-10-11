@@ -100,11 +100,7 @@ button {
   background-image: url("/icons/delete.svg");
 }
 
-.map{
+.map {
   width: 100%;
   height: 398px;
-}
-
-.ol-viewport:first-of-type {
-  display: none;
 }

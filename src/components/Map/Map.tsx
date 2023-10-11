@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, SetStateAction } from "react";
 import { fromLonLat } from "ol/proj";
 import { FullScreen, ZoomSlider, defaults as defaultControls } from "ol/control";
 import { OSM } from "ol/source";
@@ -8,14 +8,16 @@ import OlView from "ol/View";
 import "ol/ol.css";
 import { Tag } from "antd";
 import { MapProps } from "../../types";
+import { Map } from "ol";
 
 const MapComponent = ({ returnRef = null, inputError }: MapProps) => {
   const [map, setMap] = useState<OlMap | null>(null);
   const mapElement = useRef<HTMLDivElement>(null);
+  let mapTemp: SetStateAction<Map | null> = null
 
   useEffect(() => {
-    if (!map) {
-      const mapTemp = new OlMap({
+    if (!map && !mapTemp) {
+      mapTemp = new OlMap({
         target: mapElement.current as HTMLElement,
         controls: defaultControls().extend([new FullScreen(), new ZoomSlider()]),
         view: new OlView({
@@ -38,7 +40,7 @@ const MapComponent = ({ returnRef = null, inputError }: MapProps) => {
       });
 
       setTimeout(() => {
-        mapTemp.updateSize();
+        (mapTemp as Map).updateSize();
       }, 0);
 
       setMap(mapTemp);

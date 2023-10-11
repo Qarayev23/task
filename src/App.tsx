@@ -20,7 +20,7 @@ function App() {
   const tabulatorRef = useRef<React.MutableRefObject<any>>(null);
 
   return (
-    <div className='m-7'>
+    <div className='m-5'>
       <div className='flex gap-3 mb-5'>
         <Button type="primary" onClick={() => setIsLoadModalOpen(true)}>Load Excel File</Button>
         {

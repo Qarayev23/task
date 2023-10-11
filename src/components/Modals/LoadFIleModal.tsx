@@ -30,7 +30,9 @@ const LoadFileModal = ({ isLoadModalOpen, setIsLoadModalOpen, setTableData, tabu
 
     const { getRootProps, getInputProps } = useDropzone({
         onDrop,
-        accept: '.xlsx' as unknown as Accept,
+       accept: {
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': ['.xlsx'],
+       }
     });
 
     return (
