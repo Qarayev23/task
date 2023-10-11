@@ -1,8 +1,9 @@
 import { Modal } from 'antd'
-import { useDropzone } from 'react-dropzone';
+import { Accept, useDropzone } from 'react-dropzone';
 import * as XLSX from 'xlsx';
+import { LoadFileModalProps } from '../../types';
 
-const LoadFileModal = ({ isLoadModalOpen, setIsLoadModalOpen, setTableData, tabulatorRef }) => {
+const LoadFileModal = ({ isLoadModalOpen, setIsLoadModalOpen, setTableData, tabulatorRef }: LoadFileModalProps) => {
     const onDrop = (acceptedFiles: File[]) => {
         const file = acceptedFiles[0];
         if (file) {
@@ -12,14 +13,14 @@ const LoadFileModal = ({ isLoadModalOpen, setIsLoadModalOpen, setTableData, tabu
                 const workbook = XLSX.read(data, { type: 'array' });
                 const sheetName = workbook.SheetNames[0];
                 const worksheet = workbook.Sheets[sheetName];
-                const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
-                const formattedData = jsonData.slice(1).map((row) => ({
+                const jsonData: (string | number)[][] = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+                const formattedData = jsonData.slice(1).map((row: (string | number)[]) => ({
                     id: Number(row[0]),
-                    len: row[1],
-                    wkt: row[2],
-                    status: row[3],
+                    len: Number(row[1]),
+                    wkt: row[2].toString(),
+                    status: Number(row[3]),
                 }));
-                setTableData(() => formattedData)
+                setTableData(formattedData)
                 tabulatorRef?.current?.current?.setData(formattedData)
                 setIsLoadModalOpen(false)
             };
@@ -29,11 +30,11 @@ const LoadFileModal = ({ isLoadModalOpen, setIsLoadModalOpen, setTableData, tabu
 
     const { getRootProps, getInputProps } = useDropzone({
         onDrop,
-        accept: '.xlsx',
+        accept: '.xlsx' as unknown as Accept,
     });
 
     return (
-        <Modal open={isLoadModalOpen} onCancel={() =>  setIsLoadModalOpen(false)} footer={null}>
+        <Modal open={isLoadModalOpen} onCancel={() => setIsLoadModalOpen(false)} footer={null}>
             <div  {...getRootProps()} className='border border-dashed border-gray-500 rounded p-8 text-center cursor-pointer mt-8'>
                 <input {...getInputProps()} />
                 <p>Drag & drop an Excel file here, or click to select one</p>

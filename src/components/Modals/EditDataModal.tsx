@@ -1,11 +1,12 @@
 import { Button, Form, Input, InputNumber, Modal, Select } from 'antd'
 import { useEffect } from 'react';
+import { EditDataModalProps, TableDataProps } from '../../types';
 
-const EditDataModal = ({ isEditModalOpen, setIsEditModalOpen, tabulatorRef }) => {
+const EditDataModal = ({ isEditModalOpen, setIsEditModalOpen, tabulatorRef }: EditDataModalProps) => {
     const [form] = Form.useForm()
     const currentValue = tabulatorRef?.current?.current?.getSelectedData()[0]
 
-    const onFinish = (values) => {
+    const onFinish = (values : TableDataProps) => {
         tabulatorRef?.current?.current?.updateRow(currentValue.id, { ...currentValue, len: values.len, status: values.status, wkt: values.wkt });
         tabulatorRef?.current?.current?.deselectRow();
         setIsEditModalOpen(false);
@@ -32,7 +33,7 @@ const EditDataModal = ({ isEditModalOpen, setIsEditModalOpen, tabulatorRef }) =>
                 <Form.Item
                     label="Add Len (only numbers)"
                     name="len"
-                    rules={[{ required: true, message: 'Add Len (only numbers)' }]}
+                    rules={[{ required: true, message: 'only numbers' }]}
                 >
                     <InputNumber className='w-full' />
                 </Form.Item>

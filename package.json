@@ -12,11 +12,14 @@
   "dependencies": {
     "@ant-design/icons": "^5.2.6",
     "antd": "^5.9.4",
-    "chart.js": "^4.4.0",
+    "chart.js": "^4.0.0",
+    "ol": "^8.1.0",
+    "ol-layerswitcher": "^4.1.1",
     "react": "^18.2.0",
-    "react-chartjs-2": "^5.2.0",
+    "react-chartjs-2": "^5.0.0",
     "react-dom": "^18.2.0",
     "react-dropzone": "^14.2.3",
+    "react-ol": "^0.1.12",
     "react-tabulator": "^0.19.0",
     "tabulator-tables": "^5.5.2",
     "xlsx": "^0.18.5"

@@ -1,10 +1,11 @@
 import { Button, Form, InputNumber, Modal, Select } from 'antd'
+import { AddDataModalProps, TableDataProps } from '../../types';
 
-const AddDataModal = ({ isAddModalOpen, setIsAddModalOpen, tabulatorRef }) => {
+const AddDataModal = ({ isAddModalOpen, setIsAddModalOpen, tabulatorRef }: AddDataModalProps) => {
     const [form] = Form.useForm()
 
-    const onFinish = (values) => {
-        const idArray = tabulatorRef.current.current.getData(true).map(item => item.id).sort((a, b) => b - a);
+    const onFinish = (values: TableDataProps) => {
+        const idArray = tabulatorRef.current.current.getData(true).map((item: { id: number }) => item.id).sort((a: number, b: number) => b - a);
         tabulatorRef.current.current.addData({ ...values, id: idArray[0] + 1 })
         setIsAddModalOpen(false);
         form.resetFields();
@@ -22,7 +23,7 @@ const AddDataModal = ({ isAddModalOpen, setIsAddModalOpen, tabulatorRef }) => {
                 <Form.Item
                     label="Add Len (only numbers)"
                     name="len"
-                    rules={[{ required: true, message: 'Add Len (only numbers)' }]}
+                    rules={[{ required: true, message: 'only numbers' }]}
                 >
                     <InputNumber className='w-full' />
                 </Form.Item>
