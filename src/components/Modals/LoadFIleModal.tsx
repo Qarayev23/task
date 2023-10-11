@@ -1,5 +1,5 @@
 import { Modal } from 'antd'
-import { Accept, useDropzone } from 'react-dropzone';
+import { useDropzone } from 'react-dropzone';
 import * as XLSX from 'xlsx';
 import { LoadFileModalProps } from '../../types';
 
